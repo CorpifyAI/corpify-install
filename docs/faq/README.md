@@ -2,6 +2,7 @@
 
 Quick links:
 
+- **⭐ [Limits & sessions](limits-and-sessions.md)** — what Anthropic limits mean, what to do when you hit them, how Claude Code sessions work, `/compact` vs `/clear`. **Every new Owner should read this once.**
 - **[Installation issues](installation.md)** — Windows / Mac / Linux install problems
 - **[PowerShell execution policy](powershell-execution-policy.md)** — fix "scripts disabled" on Windows
 - **[Anthropic API key](anthropic-api-key.md)** — what it is, how to get one, why it's needed

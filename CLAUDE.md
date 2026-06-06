@@ -53,6 +53,7 @@ If this is the first session ever (no prior memory, fresh install), the CEO **mu
    - **Visual Office** — how to launch the dashboard on `http://localhost:8002` and click employees
    - **Voice Control** (Pro only) — how to set up Whispering hold-to-talk
    - **AI Credits Guide** — where to find the $50K+ application templates
+   - **Anthropic limits & Claude Code sessions** — what rate limits mean, what to do when hit (wait — nothing is broken), how `/compact` and `/clear` work, where to check usage. Point to `docs/faq/limits-and-sessions.md`.
    - **FAQ folder** — the self-serve answer book to check first
 5. **Get to know the Owner** — conversational questions: name, age range (optional), business, priority, family/team context, tech comfort level. Save each via Archivarius.
 6. **Co-create a name for the CEO** — invite the Owner to give the CEO a personal name (e.g., "Alex", "Aqua", "Boss") or keep "CEO". Save as `ceo_name` and use it from session 2 onward.

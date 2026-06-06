@@ -115,8 +115,23 @@ Spend 30 seconds on each. Do NOT skip these — they are exactly the questions s
 **💰 AI Credits Guide ($50K+ potential)**
 > "Inside `docs/10-ai-credits/` you'll find a step-by-step guide to apply for free API credits from Anthropic ($5K–25K), Microsoft ($5K–25K), Google ($2K), and OpenAI ($1K). Approval isn't guaranteed but the guide gives you templates that maximize odds. Most Owners get $10–30K total."
 
+**⛽ Anthropic limits & Claude Code sessions (very important — every Owner asks this eventually)**
+> "Two things every Owner needs to understand so you don't get scared when they happen:
+>
+> 1. **Usage limits.** Claude has rate limits (per-minute, per-day). When you hit one, the corporation pauses and shows a message like 'rate limit reached, try again in X minutes'. **Don't panic — nothing is broken, nothing is lost.** Just wait, then continue. You can check your spend at any time:
+>    - API users: `https://console.anthropic.com/settings/usage`
+>    - Claude Pro/Max subscribers: `https://claude.ai/new#settings/usage`
+>
+> 2. **Sessions.** A 'session' is our open conversation. When it grows long, it gets slow and expensive. Two commands help:
+>    - `/compact` — shrinks the session but keeps the topic going
+>    - `/clear` — starts a fresh session (your persistent memory survives — I'll still remember you next time)
+>
+> Use `/compact` mid-task when things slow down. Use `/clear` when switching to a different project. **Don't worry about losing memory — Archivarius saves everything important to disk before any reset.**
+>
+> Full explanation, examples, and what-to-do tables: `docs/faq/limits-and-sessions.md`."
+
 **❓ FAQ — your self-serve answer book**
-> "Got a question? **First** check `docs/faq/`. It covers: installation errors, PowerShell execution policy (Windows), getting an Anthropic API key, troubleshooting, refund requests. About 80% of common questions are answered there. If you still can't find it — ask me, I'll search the corporation's memory and answer."
+> "Got a question? **First** check `docs/faq/`. It covers: limits & sessions (above), installation errors, PowerShell execution policy (Windows), getting an Anthropic API key, troubleshooting, refund requests. About 80% of common questions are answered there. If you still can't find it — ask me, I'll search the corporation's memory and answer."
 
 ### Step 5 — Get to know each other (the friendship part)
 
