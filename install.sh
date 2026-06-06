@@ -118,13 +118,18 @@ else
     fi
 fi
 
-# Claude Code
+# Claude Code CLI (terminal)
 if ! command -v claude &> /dev/null; then
-    echo "  Installing Claude Code..."
+    echo "  Installing Claude Code CLI..."
     npm install -g @anthropic-ai/claude-code 2>/dev/null || sudo npm install -g @anthropic-ai/claude-code
 else
-    echo "  [OK] Claude Code"
+    echo "  [OK] Claude Code CLI"
 fi
+
+# Claude Code VS Code extension (UI panel)
+echo "  Installing Claude Code VS Code extension..."
+code --install-extension anthropic.claude-code --force &> /dev/null || true
+echo "  [OK] Claude Code VS Code extension"
 
 # ---- Download Corpify content --------------------------------------------
 echo ""
@@ -175,9 +180,10 @@ code "$INSTALL_DIR" &> /dev/null &
 
 echo ""
 echo "Next steps:"
-echo "  1. In VS Code, open the Claude Code panel (sidebar)"
-echo "  2. Type: @corp-ceo Hello, I am ready to start"
-echo "  3. CEO will introduce the corporation and ask about you"
+echo "  1. In VS Code, click the Claude icon on the left sidebar"
+echo "  2. Sign in to Claude (browser will open, allow access)"
+echo "  3. In the chat, type: hi"
+echo "  4. The CEO will greet you and walk you through everything"
 echo ""
 echo "Need help? See ~/corpify/docs/faq/"
 echo "Support: support@corpify.tech"

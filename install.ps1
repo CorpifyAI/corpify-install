@@ -111,13 +111,18 @@ if (-not (Test-Command code)) {
     Write-Host "  [OK] VS Code" -ForegroundColor Green
 }
 
-# Claude Code
+# Claude Code CLI (terminal)
 if (-not (Test-Command claude)) {
-    Write-Host "  Installing Claude Code..." -ForegroundColor Yellow
+    Write-Host "  Installing Claude Code CLI..." -ForegroundColor Yellow
     npm install -g @anthropic-ai/claude-code 2>&1 | Out-Null
 } else {
-    Write-Host "  [OK] Claude Code" -ForegroundColor Green
+    Write-Host "  [OK] Claude Code CLI" -ForegroundColor Green
 }
+
+# Claude Code VS Code extension (UI panel)
+Write-Host "  Installing Claude Code VS Code extension..." -ForegroundColor Yellow
+code --install-extension anthropic.claude-code --force 2>&1 | Out-Null
+Write-Host "  [OK] Claude Code VS Code extension" -ForegroundColor Green
 
 # ---- Download Corpify content --------------------------------------------
 Write-Host ""
@@ -169,9 +174,10 @@ code $installDir
 
 Write-Host ""
 Write-Host "Next steps:"
-Write-Host "  1. In VS Code, open the Claude Code panel (sidebar)"
-Write-Host "  2. Type: @corp-ceo Hello, I am ready to start"
-Write-Host "  3. CEO will introduce the corporation and ask about you"
+Write-Host "  1. In VS Code, click the Claude icon on the left sidebar"
+Write-Host "  2. Sign in to Claude (browser will open, allow access)"
+Write-Host "  3. In the chat, type: hi"
+Write-Host "  4. The CEO will greet you and walk you through everything"
 Write-Host ""
 Write-Host "Need help? See ~/corpify/docs/faq/"
 Write-Host "Support: support@corpify.tech"
