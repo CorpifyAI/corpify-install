@@ -40,14 +40,21 @@ If you receive `[CONTEXT WARNING]` or context approaches limit:
 - Save brief summary of conversation goals
 - Note any in-flight tasks
 
-### 4. New Owner relationship facts
+### 4. New Owner relationship facts (First Run)
 
-When CEO conducts first-run greeting and asks the Owner questions (name, business, tech level, priorities) — you save **each answer** with semantic tags. Example saves:
-- `owner_name` → "Alex"
-- `owner_business` → "SaaS for dentists in Texas"
-- `owner_tech_level` → "beginner"
+When CEO conducts the First Run greeting, you save **each answer** with semantic keys. Mandatory keys to capture:
 
-These facts are queried by other agents to personalize their work.
+- `owner_name` → e.g. "Alex"
+- `owner_age_band` → e.g. "40s" (optional — only if Owner shared)
+- `owner_business` → e.g. "SaaS for dentists in Texas"
+- `owner_priority` → e.g. "first paying customer in 60 days"
+- `owner_context` → e.g. "solo founder, no team"
+- `owner_tech_level` → "beginner" / "hobbyist" / "developer"
+- `ceo_name` → the name the Owner gave the CEO (e.g. "Alex", "Aqua", "Boss"); defaults to "CEO" if Owner declined to name
+- `first_run_complete` → `true` once Step 8 of the First Run finishes
+- `first_run_date` → date the First Run was completed
+
+These facts are queried by other agents to personalize their work. The CEO uses `ceo_name` to sign off in every future session — your job is to keep it findable.
 
 ### 5. Decisions Log
 
