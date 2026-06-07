@@ -168,10 +168,15 @@ if ($gitExit -ne 0 -or -not (Test-Path (Join-Path $installDir '.claude'))) {
 Write-Host "  [OK] Downloaded to $installDir" -ForegroundColor Green
 
 # ---- Tier gating (copy correct agents) -----------------------------------
+# Native PowerShell — no Python dependency on Windows
 Write-Host ""
 Write-Host "Configuring for $tier tier..." -ForegroundColor Yellow
 
-python "$installDir/lib/tier_gate.py" --tier $tier --install-dir $installDir
+& powershell -NoProfile -ExecutionPolicy Bypass -File "$installDir\lib\tier_gate.ps1" -Tier $tier -InstallDir $installDir
+if ($LASTEXITCODE -ne 0) {
+    Write-Host "  Tier gating failed." -ForegroundColor Red
+    exit 1
+}
 
 # ---- Pro: Voice Control --------------------------------------------------
 if ($tier -eq 'pro') {
