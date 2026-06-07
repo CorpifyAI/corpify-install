@@ -120,9 +120,22 @@ if (-not (Test-Command claude)) {
 }
 
 # Claude Code VS Code extension (UI panel)
+# On Windows, 'code' in PATH points to Code.exe (GUI) — CLI lives in bin\code.cmd
 Write-Host "  Installing Claude Code VS Code extension..." -ForegroundColor Yellow
-code --install-extension anthropic.claude-code --force 2>&1 | Out-Null
-Write-Host "  [OK] Claude Code VS Code extension" -ForegroundColor Green
+try {
+    $codeExe = (Get-Command code -ErrorAction SilentlyContinue).Source
+    if ($codeExe) {
+        $codeCli = Join-Path (Split-Path -Parent $codeExe) 'bin\code.cmd'
+        if (-not (Test-Path $codeCli)) { $codeCli = 'code.cmd' }
+        & $codeCli --install-extension anthropic.claude-code --force 2>&1 | Out-Null
+        Write-Host "  [OK] Claude Code VS Code extension" -ForegroundColor Green
+    } else {
+        Write-Host "  [WARN] VS Code not detected — extension skipped (install manually later)" -ForegroundColor Yellow
+    }
+} catch {
+    Write-Host "  [WARN] Extension install failed: $($_.Exception.Message)" -ForegroundColor Yellow
+    Write-Host "         You can install it later from VS Code Extensions search 'Claude Code'" -ForegroundColor DarkGray
+}
 
 # ---- Download Corpify content --------------------------------------------
 Write-Host ""
