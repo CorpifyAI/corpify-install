@@ -153,9 +153,16 @@ if (Test-Path $installDir) {
 }
 
 # Clone the public corpify-install repo
+# Git writes progress info to stderr; with $ErrorActionPreference='Stop' that
+# would abort the installer. Temporarily relax, restore after.
+$prevEAP = $ErrorActionPreference
+$ErrorActionPreference = 'Continue'
 git clone --depth 1 https://github.com/CorpifyAI/corpify-install.git $installDir 2>&1 | Out-Null
-if (-not (Test-Path $installDir)) {
-    Write-Host "  Download failed." -ForegroundColor Red
+$gitExit = $LASTEXITCODE
+$ErrorActionPreference = $prevEAP
+
+if ($gitExit -ne 0 -or -not (Test-Path (Join-Path $installDir '.claude'))) {
+    Write-Host "  Download failed (git exit code: $gitExit)." -ForegroundColor Red
     exit 1
 }
 Write-Host "  [OK] Downloaded to $installDir" -ForegroundColor Green
