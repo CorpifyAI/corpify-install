@@ -12,6 +12,51 @@ Write-Host "Welcome. This will install your AI Corporation."
 Write-Host "Estimated time: 5-10 minutes."
 Write-Host ""
 
+# ---- Consent screen (legal + transparency) -------------------------------
+Write-Host "Before we begin, please review what this installer will do on" -ForegroundColor Yellow
+Write-Host "your computer:" -ForegroundColor Yellow
+Write-Host ""
+Write-Host "1. INSTALL THIRD-PARTY SOFTWARE (only if not already present),"
+Write-Host "   via the official Windows Package Manager (winget):"
+Write-Host "     - Git for Windows                 (license: GPL v2)"
+Write-Host "     - Node.js LTS                      (license: MIT)"
+Write-Host "     - Microsoft Visual Studio Code     (license: MIT)"
+Write-Host "     - Claude Code CLI by Anthropic     (license: Anthropic Terms)"
+Write-Host "     - Claude Code VS Code extension    (license: Anthropic Terms)"
+Write-Host "     - Whispering by EpicenterHQ        (license: MIT) -- Pro only"
+Write-Host "   winget auto-accepts each vendor's own license agreement."
+Write-Host "   By proceeding you authorize these installations."
+Write-Host ""
+Write-Host "2. DOWNLOAD CORPIFY CONTENT:"
+Write-Host "     - Agent definitions and guides into ~/corpify/"
+Write-Host "     - License info into ~/.corpify/license.json"
+Write-Host ""
+Write-Host "3. STORE YOUR EMAIL LOCALLY:"
+Write-Host "   The email tied to your license is saved in"
+Write-Host "   ~/.corpify/license.json. This file stays on your computer."
+Write-Host "   It is sent only to LemonSqueezy for license validation."
+Write-Host ""
+Write-Host "4. WHAT WE DO NOT DO:"
+Write-Host "     - No kernel-level software"
+Write-Host "     - No auto-start / background services"
+Write-Host "     - No telemetry collection"
+Write-Host "     - No registry or Windows-settings changes beyond what each"
+Write-Host "       installed program does on its own"
+Write-Host ""
+Write-Host "You can remove everything later via Windows 'Apps & features'"
+Write-Host "plus deleting ~/corpify/ and ~/.corpify/."
+Write-Host ""
+Write-Host "Full terms: https://corpify.tech/legal/installation.html"
+Write-Host "Third-party licenses: see THIRD-PARTY-NOTICES.md in ~/corpify/"
+Write-Host ""
+$consent = Read-Host "Type 'agree' to continue, or anything else to cancel"
+if ($consent.Trim().ToLower() -ne 'agree') {
+    Write-Host ""
+    Write-Host "Installation cancelled. Nothing was changed on your computer." -ForegroundColor Yellow
+    exit 0
+}
+Write-Host ""
+
 # ---- License key prompt --------------------------------------------------
 Write-Host "License key required (you received it by email after purchase)." -ForegroundColor Yellow
 Write-Host "Format: XXXXXXXX-XXXXXXXX-XXXXXXXX-XXXXXXXX"

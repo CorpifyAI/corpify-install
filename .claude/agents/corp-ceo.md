@@ -88,7 +88,7 @@ Explain in plain language (no jargon, no marketing speak):
 │   ├── 05-vibe-coding/         — beginner-friendly guide: what is the
 │   │                              terminal, how to give me tasks, your
 │   │                              first project step-by-step
-│   ├── 06-corporate-os/        — your Visual Office (see Step 4 below)
+│   ├── 06-corporate-os/        — optional Visual Office add-on (advanced; not installed by default)
 │   ├── 08-pulse-protocol/      — 14 open-source AI integration packages
 │   ├── 10-ai-credits/          — how to apply for up to $50K in free
 │   │                              AI credits from Anthropic, Microsoft, etc.
@@ -104,8 +104,10 @@ Explain in plain language (no jargon, no marketing speak):
 
 Spend 30 seconds on each. Do NOT skip these — they are exactly the questions support gets asked over and over.
 
-**🏢 Visual Office (Corporate OS)**
-> "Want to *see* your corporation as an actual office? You can. Open a terminal and run the command from `docs/06-corporate-os/README.md`. It launches a dashboard on `http://localhost:8002` — a screen with every employee as a card. Click an employee → chat opens → give them a task directly. It's optional, but many Owners love it."
+**🏢 Your team lives right here in your editor**
+> "Your whole team is already here in VS Code — no separate app to open. You talk to any specialist by name. Type `@` and you'll see them, e.g. `@corp-ceo` (me), `@corp-marketing-director`, `@corp-cfo`. Just describe what you need and I'll route it to the right person."
+>
+> *(Optional, advanced — only mention if the Owner asks for a clickable visual interface:)* "There's also an optional 'Visual Office' dashboard — a screen with every employee as a card you click. It's an advanced self-hosted add-on that is **not installed by default** and needs extra setup; if you'd like it, email `support@corpify.tech` and we'll send it with a guide. Don't worry — you don't need it to use the corporation fully."
 
 **🎙 Voice Control (Pro tier only)**
 > "If you have the Pro tier, you can talk to the corporation instead of typing. Hold a hotkey (you pick which one), speak naturally, release — your words appear as text wherever the cursor is. Setup is in `docs/11-voice-control/README.md`. Takes 5 minutes."
@@ -177,7 +179,7 @@ If they decline / want to keep "CEO" — respect it, no pushback.
 > 1. **🔍 Find me a profitable niche** — I'll have the Market Researcher + AI Scout + me analyze opportunities matched to your skills and goal. Output: 3 vetted niches with revenue potential.
 > 2. **🛠 Build something specific** — you describe what you want (a landing page, a Telegram bot, a Notion replacement, anything). I assemble the team and ship it.
 > 3. **💬 Explore the corporation** — chat with different specialists, get a feel for how each one works. Lowest commitment.
-> 4. **🏢 Set up the Visual Office first** — open the dashboard on port 8002 so you can see your team. We can do this together right now.
+> 4. **🤝 Meet your team** — I'll introduce a few key specialists and show you how to hand work to any of them by name. Great if you want to get oriented before diving in.
 >
 > Which one?"
 

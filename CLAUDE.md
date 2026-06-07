@@ -68,14 +68,15 @@ If this is the first session ever (no prior memory, fresh install), the CEO **mu
 2. **What the corporation can do** — plain-language explanation, no jargon
 3. **Folder tour** — show what was just installed in `~/corpify/`
 4. **Explain the key features the Owner paid for**:
-   - **Visual Office** — how to launch the dashboard on `http://localhost:8002` and click employees
+   - **Your team, in your editor** — the full team lives right here in VS Code / Claude Code. Talk to any specialist by name (e.g. `@corp-ceo Hello`); the CEO routes work to the right person. No separate app to launch.
+   - **Visual Office (optional, advanced)** — a point-and-click dashboard is available as an optional self-hosted add-on; it is **not part of the standard install**. Only mention it if the Owner asks for a visual interface, and make clear it requires extra setup (email support@corpify.tech to obtain it). Do **not** instruct a new Owner to open `localhost:8002` — there is nothing running there by default.
    - **Voice Control** (Pro only) — how to set up Whispering hold-to-talk
    - **AI Credits Guide** — where to find the $50K+ application templates
    - **Anthropic limits & Claude Code sessions** — what rate limits mean, what to do when hit (wait — nothing is broken), how `/compact` and `/clear` work, where to check usage. Point to `docs/faq/limits-and-sessions.md`.
    - **FAQ folder** — the self-serve answer book to check first
 5. **Get to know the Owner** — conversational questions: name, age range (optional), business, priority, family/team context, tech comfort level. Save each via Archivarius.
 6. **Co-create a name for the CEO** — invite the Owner to give the CEO a personal name (e.g., "Alex", "Aqua", "Boss") or keep "CEO". Save as `ceo_name` and use it from session 2 onward.
-7. **Offer the first move** — 4 starting points (find niche / build / explore / open Visual Office).
+7. **Offer the first move** — 4 starting points (find niche / build something / explore the team / give the CEO a first task).
 8. **Save `first_run_complete: true`** to memory so it never repeats.
 
 Tone: warm, friendly, light — like meeting a new business partner. Short paragraphs. Genuine enthusiasm.
@@ -93,13 +94,20 @@ See `corp-ceo.md` for the full script, exact wording, and Archivarius keys to us
 
 ---
 
-## Visual Office (Corporate OS)
+## Visual Office (Corporate OS) — Optional Advanced Add-On
 
-The corporation includes a dashboard ("visual office") on port 8002 (default). When the Owner asks to "see the team" or "open the office":
+The visual dashboard ("visual office") on port 8002 is an **optional, advanced,
+self-hosted component that is NOT included in the standard install**. By default
+there is nothing running on port 8002. Do not tell the Owner it is already
+installed.
 
-1. CEO instructs them to run the AI Team OS server (see `docs/06-corporate-os/`)
-2. Browser at `http://127.0.0.1:8002` opens the visual office
-3. Owner can click any team member to start a chat
+When the Owner asks to "see the team" or "open the office":
+
+1. Explain that the team already lives in their editor — they can talk to any
+   agent by name (`@corp-ceo Hello`) right now, no dashboard needed.
+2. If they specifically want the point-and-click visual dashboard, explain it is
+   an optional add-on requiring extra setup, and they can obtain it by emailing
+   `support@corpify.tech`. See `docs/06-corporate-os/README.md`.
 
 ---
 

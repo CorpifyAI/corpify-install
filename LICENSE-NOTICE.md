@@ -27,6 +27,8 @@ This repository **bundles or references** the following open-source projects und
 
 The Corpify code itself (agent definitions, installer, documentation, tier-gating) is **not** open-source. License key required.
 
+Full attribution and license texts for every third-party program the installer sets up (Git, Node.js, VS Code, Claude Code, Whispering) are listed in [`THIRD-PARTY-NOTICES.md`](THIRD-PARTY-NOTICES.md).
+
 ## Activation
 
 By activating your license key, you agree to the Terms of Service at https://corpify.tech/legal/terms.html and the Refund Policy at https://corpify.tech/legal/refund.html.

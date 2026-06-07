@@ -1,4 +1,15 @@
-# Block 06 — Corporate OS (Visual Office)
+# Block 06 — Corporate OS (Visual Office) — Optional Advanced Add-On
+
+> **Please read first.** The visual dashboard described below is an **optional,
+> advanced, self-hosted component** and is **NOT included in the standard
+> Corpify install**. Your standard install gives you the full team inside VS
+> Code / Claude Code, where you talk to any agent by name (e.g. `@corp-ceo Hello`)
+> and the corporation keeps its memory across sessions — no dashboard required.
+>
+> The visual office requires Python and additional setup, and is provided on the
+> roadmap / on request. If you want it, email **support@corpify.tech** and we'll
+> send the components and a setup guide. Everything below applies **only** once
+> you have obtained those components.
 
 ## What Corporate OS is
 
@@ -6,9 +17,10 @@ A web dashboard ("visual office") that shows your entire corporation at a glance
 
 It runs locally on your computer at `http://127.0.0.1:8002` — your data stays with you.
 
-## What's bundled
+## What the Corporate OS includes (once obtained)
 
-When you installed Corpify, the Corporate OS components were copied to `~/corpify/06-corporate-os/`:
+The Corporate OS components live in `~/corpify/06-corporate-os/` **after you have
+installed them separately**:
 
 - A Python MCP (Model Context Protocol) server — the brain. Tracks projects, tasks, teams, decisions.
 - A React/TypeScript dashboard — the front-end. Visual office UI.
