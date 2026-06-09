@@ -13,11 +13,58 @@ echo "Welcome. This will install your AI Corporation."
 echo "Estimated time: 5-10 minutes."
 echo ""
 
+# ---- Consent screen (legal + transparency) -------------------------------
+echo "Before we begin, please review what this installer will do on"
+echo "your computer:"
+echo ""
+echo "1. INSTALL THIRD-PARTY SOFTWARE (only if not already present),"
+echo "   via your system package manager (Homebrew on macOS, apt/dnf on"
+echo "   Linux) and npm:"
+echo "     - Git                              (license: GPL v2)"
+echo "     - Node.js                          (license: MIT)"
+echo "     - Visual Studio Code               (license: MIT)"
+echo "     - Claude Code CLI by Anthropic     (license: Anthropic Terms)"
+echo "     - Claude Code VS Code extension    (license: Anthropic Terms)"
+echo "     - Whispering by EpicenterHQ        (license: MIT) -- Pro only"
+echo "   Each program installs under its own vendor license."
+echo "   By proceeding you authorize these installations."
+echo ""
+echo "2. DOWNLOAD CORPIFY CONTENT:"
+echo "     - Agent definitions and guides into ~/corpify/"
+echo "     - License info into ~/.corpify/license.json"
+echo ""
+echo "3. STORE YOUR EMAIL LOCALLY:"
+echo "   The email tied to your license is saved in"
+echo "   ~/.corpify/license.json. This file stays on your computer."
+echo "   It is sent only to LemonSqueezy for license validation."
+echo ""
+echo "4. WHAT WE DO NOT DO:"
+echo "     - No kernel-level software"
+echo "     - No auto-start / background services"
+echo "     - No telemetry collection"
+echo "     - No system-settings changes beyond what each installed"
+echo "       program does on its own"
+echo ""
+echo "You can remove everything later by deleting ~/corpify/ and"
+echo "~/.corpify/, and uninstalling the programs via your package manager."
+echo ""
+echo "Full terms: https://corpify.tech/legal/installation.html"
+echo "Third-party licenses: see THIRD-PARTY-NOTICES.md in ~/corpify/"
+echo ""
+read -r -p "Type 'agree' to continue, or anything else to cancel: " CONSENT < /dev/tty
+CONSENT_LC="$(printf '%s' "$CONSENT" | tr '[:upper:]' '[:lower:]' | tr -d '[:space:]')"
+if [ "$CONSENT_LC" != "agree" ]; then
+    echo ""
+    echo "Installation cancelled. Nothing was changed on your computer."
+    exit 0
+fi
+echo ""
+
 # ---- License key prompt --------------------------------------------------
 echo "License key required (you received it by email after purchase)."
 echo "Format: XXXXXXXX-XXXXXXXX-XXXXXXXX-XXXXXXXX"
 echo ""
-read -r -p "Paste your license key: " LICENSE_KEY
+read -r -p "Paste your license key: " LICENSE_KEY < /dev/tty
 
 if [ -z "$LICENSE_KEY" ] || [ ${#LICENSE_KEY} -lt 16 ]; then
     echo ""
@@ -90,7 +137,7 @@ if [ "$OS" = "Darwin" ]; then
         echo "  Installing Homebrew..."
         /bin/bash -c "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/HEAD/install.sh)"
     fi
-    for pkg in git node python; do
+    for pkg in git node; do
         if ! command -v "$pkg" &> /dev/null; then
             echo "  Installing $pkg..."
             brew install "$pkg" || true
@@ -108,11 +155,11 @@ else
     # Linux — apt or dnf
     if command -v apt-get &> /dev/null; then
         sudo apt-get update -qq
-        for pkg in git nodejs python3 npm; do
+        for pkg in git nodejs npm; do
             command -v "$pkg" &> /dev/null || sudo apt-get install -y "$pkg"
         done
     elif command -v dnf &> /dev/null; then
-        for pkg in git nodejs python3 npm; do
+        for pkg in git nodejs npm; do
             command -v "$pkg" &> /dev/null || sudo dnf install -y "$pkg"
         done
     fi
@@ -138,7 +185,7 @@ echo "Downloading Corpify content..."
 INSTALL_DIR="$HOME/corpify"
 if [ -d "$INSTALL_DIR" ]; then
     echo "  Existing installation at $INSTALL_DIR"
-    read -r -p "  Overwrite? (yes/no): " CONFIRM
+    read -r -p "  Overwrite? (yes/no): " CONFIRM < /dev/tty
     if [ "$CONFIRM" != "yes" ]; then
         echo "Cancelled."
         exit 0
@@ -157,7 +204,7 @@ echo "  [OK] Downloaded to $INSTALL_DIR"
 echo ""
 echo "Configuring for $TIER tier..."
 
-python3 "$INSTALL_DIR/lib/tier_gate.py" --tier "$TIER" --install-dir "$INSTALL_DIR"
+bash "$INSTALL_DIR/lib/tier_gate.sh" --tier "$TIER" --install-dir "$INSTALL_DIR"
 
 # ---- Pro: Voice Control --------------------------------------------------
 if [ "$TIER" = "pro" ]; then
