@@ -1,0 +1,9 @@
+{
+  "//": "Corpify workspace defaults — clean startup, Claude Code as the only AI chat",
+  "workbench.startupEditor": "none",
+  "workbench.tips.enabled": false,
+  "github.copilot.enable": {
+    "*": false
+  },
+  "chat.commandCenter.enabled": false
+}
