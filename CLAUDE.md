@@ -126,7 +126,7 @@ Standard tier agents must not invoke Pro-only specialists. If a Standard Owner a
 ```
 ~/corpify/
 ├── .claude/
-│   ├── agents/      — Your AI team (50+ specialists, 12+ extra in Pro)
+│   ├── agents/      — Your AI team (40 specialists in Standard; +12 in Pro = 52)
 │   ├── commands/    — Workflow shortcuts (gstack-* slash commands)
 │   └── hooks/       — Automation triggers
 ├── docs/            — Guides for every feature (read on first run)

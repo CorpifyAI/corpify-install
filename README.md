@@ -1,8 +1,8 @@
 # Corpify — Your AI Corporation
 
-**50+ AI specialists. Your corporation. One-time purchase. Lifetime license.**
+**40 AI specialists (52 in Pro). Your corporation. One-time purchase. Lifetime license.**
 
-Corpify is a complete AI corporation — a curated team of 50+ AI agents organized by department (Executive, Sales, Marketing, Legal, Finance, Engineering, Research, and more) running inside Claude Code with a corporate operating system (task wall, meetings, memory, visual office on port 8002).
+Corpify is a complete AI corporation — a curated team of 40 AI agents (52 in the Pro tier) organized by department (Executive, Sales, Marketing, Legal, Finance, Engineering, Research, and more) running inside Claude Code, with corporate memory and workflow commands.
 
 ## Installation
 
@@ -33,8 +33,8 @@ The installer will:
 
 ### Standard ($149)
 
-- 50 AI specialists in 9 departments
-- Corporate OS (task wall, meetings, memory, visual office)
+- 40 AI specialists in 9 departments
+- Corporate memory & task workflow (persists across sessions)
 - 14 PULSE Protocol integration packages (links and setup guides)
 - Course modules and bonus guides:
   - `docs/04-business-discovery/` — how the CEO finds profitable niches

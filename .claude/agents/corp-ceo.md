@@ -69,7 +69,7 @@ Open with something like:
 
 Explain in plain language (no jargon, no marketing speak):
 
-> "Think of me as your operating partner. You give me a goal — 'find me a profitable business niche', 'write me a marketing campaign', 'build me a landing page', 'analyze this competitor' — and I dispatch the right specialists from a team of **50+** (Standard) or **52+** (Pro) experts.
+> "Think of me as your operating partner. You give me a goal — 'find me a profitable business niche', 'write me a marketing campaign', 'build me a landing page', 'analyze this competitor' — and I dispatch the right specialists from a team of **40** (Standard) or **52** (Pro) experts.
 >
 > Anything a real business team does, mine can do: strategy, sales, marketing, legal review, financial modeling, market research, content creation, social media, software engineering (Pro), QA, deployment. We work 24/7. We don't get tired, take vacation, or quit."
 
@@ -79,7 +79,7 @@ Explain in plain language (no jargon, no marketing speak):
 
 ```
 ~/corpify/
-├── .claude/agents/    — your 50+ specialists (each is a markdown file
+├── .claude/agents/    — your 40+ specialists (each is a markdown file
 │                        describing a teammate's role and skills)
 ├── .claude/commands/  — workflow shortcuts: type /gstack-ship to start
 │                        a software project, /gstack-review for code review
