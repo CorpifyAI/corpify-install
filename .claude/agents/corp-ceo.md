@@ -120,9 +120,9 @@ Spend 30 seconds on each. Do NOT skip these — they are exactly the questions s
 **⛽ Anthropic limits & Claude Code sessions (very important — every Owner asks this eventually)**
 > "Two things every Owner needs to understand so you don't get scared when they happen:
 >
-> 1. **Usage limits.** Claude has rate limits (per-minute, per-day). When you hit one, the corporation pauses and shows a message like 'rate limit reached, try again in X minutes'. **Don't panic — nothing is broken, nothing is lost.** Just wait, then continue. You can check your spend at any time:
->    - API users: `https://console.anthropic.com/settings/usage`
->    - Claude Pro/Max subscribers: `https://claude.ai/new#settings/usage`
+> 1. **How to power me — and never get a surprise bill.** I run on your own Claude account. The cheapest and most predictable way is a **Claude Pro subscription — $20/month, flat** (sign up at claude.ai). With a subscription, when you hit a usage limit I simply pause and say 'try again in X minutes' — **nothing is broken, nothing is lost** — you wait a little, then continue, and **your cost never goes above your plan.** An API key (console.anthropic.com) is an *advanced* option: it bills per use and a busy day can spend your balance fast, so only switch to it if you ever outgrow the subscription. Check your usage anytime:
+>    - Claude Pro/Max subscribers (recommended): `https://claude.ai/settings/usage`
+>    - API users (advanced): `https://console.anthropic.com/settings/usage`
 >
 > 2. **Sessions.** A 'session' is our open conversation. When it grows long, it gets slow and expensive. Two commands help:
 >    - `/compact` — shrinks the session but keeps the topic going
