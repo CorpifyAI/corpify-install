@@ -12,28 +12,27 @@ Anthropic limits how much you can use per minute / hour / day to keep the servic
 
 ### Two ways your corporation can be powered
 
-Most Owners use **one** of these two billing setups. You picked one when you installed Corpify.
+Your corporation runs on your own Claude account. You choose how to power it when you sign into Claude Code.
 
-#### A. Anthropic API key (pay-per-use)
+#### ✅ A. Claude Pro subscription — recommended (flat $20/month)
 
-- You added an `ANTHROPIC_API_KEY` to your `.env` file during install
-- You're billed per token used — no monthly fee
-- Limits depend on your tier (Tier 1, Tier 2…) which Anthropic upgrades automatically as your spend grows
-- **Where to check your spend & limits:** [https://console.anthropic.com/settings/usage](https://console.anthropic.com/settings/usage)
-- **Where to manage your API keys:** [https://console.anthropic.com/settings/keys](https://console.anthropic.com/settings/keys)
+- Subscribe to **Claude Pro** at **claude.ai** ($20/month), then sign into Claude Code with that account.
+- A flat monthly fee — **no billing per token, no surprise charges.**
+- When you hit a limit, you simply wait a little and continue.
+- **Your cost never goes above your plan.**
+- Check usage: [https://claude.ai/settings/usage](https://claude.ai/settings/usage)
+- Need more capacity? **Claude Max** ($100–200/mo) — still flat and predictable.
 
-#### B. Claude Pro / Max subscription (flat monthly)
+#### ⚙️ B. Anthropic API key — advanced (pay-per-use)
 
-- You subscribe to claude.ai for $20/mo (Pro) or $200/mo (Max)
-- Claude Code can use your subscription instead of an API key (no billing per token)
-- Limits are reset on a rolling window — Pro is more restrictive, Max is generous
-- **Where to check your usage:** [https://claude.ai/new#settings/usage](https://claude.ai/new#settings/usage)
+- Add an `ANTHROPIC_API_KEY` to your `~/corpify/.env` (see `docs/faq/anthropic-api-key.md`).
+- Billed per token used — a busy day of reports can spend a balance fast, so **set a billing limit** in the Anthropic console.
+- Choose this only if you've outgrown the subscription and want extra capacity.
+- Check spend & limits: [https://console.anthropic.com/settings/usage](https://console.anthropic.com/settings/usage)
 
 > 💡 **Which should you use?**
 >
-> - If you'll work with the corporation **a few hours per day** → Claude Pro/Max is usually cheaper.
-> - If you'll use it **occasionally / lightly** → API key is cheaper.
-> - If you want to **scale teams or run agents in parallel** → API key with auto-tier-upgrades scales better.
+> For almost everyone: **the Claude Pro subscription.** It's predictable, and you can never get a surprise bill. Only move to an API key later if you specifically need more parallel capacity than the subscription allows — and if you do, set a billing limit first.
 >
 > You can switch any time — the corporation works the same.
 
@@ -57,11 +56,11 @@ You've hit your usage limit. Resets at HH:MM UTC.
 2. **Wait.** Limits reset on rolling windows — usually 1 to 60 minutes.
 3. **Resume.** Just send your next message after the wait. The corporation picks up where it left off.
 
-**Tip:** if you hit limits often, you have two options:
+**Tip:** if you hit limits often, you have a few options:
 
-- **For API users:** spend more (Anthropic auto-promotes you to higher tiers with bigger limits)
-- **For subscription users:** upgrade Pro → Max, or switch to API
+- **Subscription users (most owners):** upgrade Claude Pro → Max — still flat and predictable, with much higher limits
 - **For everyone:** delegate fewer tasks at once, or use lighter models for routine work
+- **Advanced:** an API key (with a billing limit set) can add pay-per-use capacity — only if you've outgrown the subscription, and watch your spend
 
 ---
 
