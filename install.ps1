@@ -230,25 +230,50 @@ if ($tier -eq 'pro') {
     & powershell -ExecutionPolicy Bypass -File "$installDir/voice/install-whispering.ps1"
 }
 
-# ---- Open VS Code with corporation ---------------------------------------
+# ---- Create the "Open Corpify" desktop shortcut --------------------------
+# One findable icon: double-click -> opens your corporation. No hunting for
+# panels, no confusion with other editors/AI chats.
+try {
+    $desktop = [Environment]::GetFolderPath("Desktop")
+    $lnk = Join-Path $desktop "Open Corpify.lnk"
+    $ws  = New-Object -ComObject WScript.Shell
+    $sc  = $ws.CreateShortcut($lnk)
+    $sc.TargetPath       = "$env:SystemRoot\System32\WindowsPowerShell\v1.0\powershell.exe"
+    $sc.Arguments        = "-NoExit -Command `"Set-Location '$installDir'; claude`""
+    $sc.WorkingDirectory = $installDir
+    $sc.IconLocation     = "$env:SystemRoot\System32\WindowsPowerShell\v1.0\powershell.exe,0"
+    $sc.Description       = "Open your Corpify AI Corporation"
+    $sc.Save()
+    $shortcutOk = $true
+} catch {
+    $shortcutOk = $false
+}
+
+# ---- Done ----------------------------------------------------------------
 Write-Host ""
 Write-Host "========================================" -ForegroundColor Cyan
 Write-Host "  Installation complete!" -ForegroundColor Cyan
 Write-Host "========================================" -ForegroundColor Cyan
 Write-Host ""
 Write-Host "Your AI Corporation is ready at: $installDir"
+if ($shortcutOk) {
+    Write-Host "An 'Open Corpify' icon was added to your Desktop." -ForegroundColor Green
+    Write-Host "Double-click it anytime to talk to your corporation." -ForegroundColor Green
+}
 Write-Host ""
-Write-Host "Opening VS Code with your corporation..."
-Start-Sleep -Seconds 2
-code $installDir
+Write-Host "FIRST-TIME SIGN-IN (one time only):" -ForegroundColor Yellow
+Write-Host "  1. Claude Code opens below. Pick the theme (press Enter)."
+Write-Host "  2. Choose login: '1. Claude account with subscription' (Claude Pro)."
+Write-Host "     A browser opens -> sign in -> click Authorize -> copy the code"
+Write-Host "     it shows -> paste it back here (right-click the title bar > Edit > Paste)."
+Write-Host "  3. On 'trust this folder?' press Enter."
+Write-Host "  4. Type:  hi   -> your CEO greets you."
+Write-Host "  Next time, just double-click the 'Open Corpify' Desktop icon."
+Write-Host ""
+Write-Host "Need help? support@corpify.tech"
+Write-Host ""
+Start-Sleep -Seconds 3
 
-Write-Host ""
-Write-Host "Next steps:"
-Write-Host "  1. In VS Code, click the Claude icon on the left sidebar"
-Write-Host "  2. Sign in to Claude (browser will open, allow access)"
-Write-Host "  3. In the chat, type: hi"
-Write-Host "  4. The CEO will greet you and walk you through everything"
-Write-Host ""
-Write-Host "Need help? See ~/corpify/docs/faq/"
-Write-Host "Support: support@corpify.tech"
-Write-Host ""
+# Launch Claude Code so the CEO greets the Owner right away.
+Set-Location $installDir
+claude
