@@ -57,11 +57,19 @@ if ($consent.Trim().ToLower() -ne 'agree') {
 }
 Write-Host ""
 
-# ---- License key prompt --------------------------------------------------
-Write-Host "License key required (you received it by email after purchase)." -ForegroundColor Yellow
-Write-Host "Format: XXXXXXXX-XXXXXXXX-XXXXXXXX-XXXXXXXX"
-Write-Host ""
-$licenseKey = Read-Host "Paste your license key"
+# ---- License key (taken from your install command; prompt only as fallback)
+# Your personalized command sets $env:CORPIFY_KEY so you never have to paste
+# the key into the console separately.
+$licenseKey = $env:CORPIFY_KEY
+if ($licenseKey -and $licenseKey.Trim().Length -ge 16) {
+    $licenseKey = $licenseKey.Trim()
+    Write-Host "License key detected from your install command." -ForegroundColor Green
+} else {
+    Write-Host "License key required (you received it by email after purchase)." -ForegroundColor Yellow
+    Write-Host "Format: XXXXXXXX-XXXXXXXX-XXXXXXXX-XXXXXXXX"
+    Write-Host ""
+    $licenseKey = Read-Host "Paste your license key"
+}
 
 if (-not $licenseKey -or $licenseKey.Length -lt 16) {
     Write-Host ""
