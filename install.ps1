@@ -156,13 +156,11 @@ if (-not (Test-Command code)) {
     Write-Host "  [OK] VS Code" -ForegroundColor Green
 }
 
-# Claude Code CLI (terminal)
-if (-not (Test-Command claude)) {
-    Write-Host "  Installing Claude Code CLI..." -ForegroundColor Yellow
-    npm install -g @anthropic-ai/claude-code 2>&1 | Out-Null
-} else {
-    Write-Host "  [OK] Claude Code CLI" -ForegroundColor Green
-}
+# Claude Code CLI (terminal) — always install/update to the LATEST version.
+# Old versions had a login code-paste bug (fixed in v2.1.108), so we never skip.
+Write-Host "  Installing / updating Claude Code (latest)..." -ForegroundColor Yellow
+npm install -g @anthropic-ai/claude-code@latest 2>&1 | Out-Null
+Write-Host "  [OK] Claude Code CLI (latest)" -ForegroundColor Green
 
 # Claude Code VS Code extension (UI panel)
 # On Windows, 'code' in PATH points to Code.exe (GUI). CLI lives in bin\code.cmd.
@@ -181,6 +179,19 @@ try {
     Write-Host "  [WARN] Extension install failed: $($_.Exception.Message)" -ForegroundColor Yellow
     Write-Host "         Install later from VS Code Extensions, search 'Claude Code'." -ForegroundColor DarkGray
 }
+
+# Remove GitHub Copilot so Claude Code is the ONLY AI chat icon in VS Code
+# (customers were typing into Copilot by mistake — this prevents the confusion)
+try {
+    $cc2 = (Get-Command code -ErrorAction SilentlyContinue).Source
+    if ($cc2) {
+        $cli2 = Join-Path (Split-Path -Parent $cc2) 'bin\code.cmd'
+        if (-not (Test-Path $cli2)) { $cli2 = 'code.cmd' }
+        & $cli2 --uninstall-extension github.copilot-chat --force 2>&1 | Out-Null
+        & $cli2 --uninstall-extension github.copilot --force 2>&1 | Out-Null
+        Write-Host "  [OK] GitHub Copilot removed (Claude Code is your only AI panel)" -ForegroundColor Green
+    }
+} catch { }
 
 # ---- Download Corpify content --------------------------------------------
 Write-Host ""
@@ -230,24 +241,23 @@ if ($tier -eq 'pro') {
     & powershell -ExecutionPolicy Bypass -File "$installDir/voice/install-whispering.ps1"
 }
 
-# ---- Create the "Open Corpify" desktop shortcut --------------------------
-# One findable icon: double-click -> opens your corporation. No hunting for
-# panels, no confusion with other editors/AI chats.
+# ---- Create the "Open Corpify" desktop shortcut (opens VS Code) ----------
 try {
-    $desktop = [Environment]::GetFolderPath("Desktop")
-    $lnk = Join-Path $desktop "Open Corpify.lnk"
-    $ws  = New-Object -ComObject WScript.Shell
-    $sc  = $ws.CreateShortcut($lnk)
-    $sc.TargetPath       = "$env:SystemRoot\System32\WindowsPowerShell\v1.0\powershell.exe"
-    $sc.Arguments        = "-NoExit -Command `"Set-Location '$installDir'; claude`""
-    $sc.WorkingDirectory = $installDir
-    $sc.IconLocation     = "$env:SystemRoot\System32\WindowsPowerShell\v1.0\powershell.exe,0"
-    $sc.Description       = "Open your Corpify AI Corporation"
-    $sc.Save()
-    $shortcutOk = $true
-} catch {
+    $codeTarget = (Get-Command code -ErrorAction SilentlyContinue).Source
     $shortcutOk = $false
-}
+    if ($codeTarget) {
+        $desktop = [Environment]::GetFolderPath("Desktop")
+        $lnk = Join-Path $desktop "Open Corpify.lnk"
+        $ws  = New-Object -ComObject WScript.Shell
+        $sc  = $ws.CreateShortcut($lnk)
+        $sc.TargetPath       = $codeTarget
+        $sc.Arguments        = "`"$installDir`""
+        $sc.WorkingDirectory = $installDir
+        $sc.Description       = "Open your Corpify AI Corporation"
+        $sc.Save()
+        $shortcutOk = $true
+    }
+} catch { $shortcutOk = $false }
 
 # ---- Done ----------------------------------------------------------------
 Write-Host ""
@@ -257,23 +267,20 @@ Write-Host "========================================" -ForegroundColor Cyan
 Write-Host ""
 Write-Host "Your AI Corporation is ready at: $installDir"
 if ($shortcutOk) {
-    Write-Host "An 'Open Corpify' icon was added to your Desktop." -ForegroundColor Green
-    Write-Host "Double-click it anytime to talk to your corporation." -ForegroundColor Green
+    Write-Host "An 'Open Corpify' icon was added to your Desktop (opens your corporation)." -ForegroundColor Green
 }
 Write-Host ""
-Write-Host "FIRST-TIME SIGN-IN (one time only):" -ForegroundColor Yellow
-Write-Host "  1. Claude Code opens below. Pick the theme (press Enter)."
-Write-Host "  2. Choose login: '1. Claude account with subscription' (Claude Pro)."
-Write-Host "     A browser opens -> sign in -> click Authorize -> copy the code"
-Write-Host "     it shows -> paste it back here (right-click the title bar > Edit > Paste)."
-Write-Host "  3. On 'trust this folder?' press Enter."
-Write-Host "  4. Type:  hi   -> your CEO greets you."
-Write-Host "  Next time, just double-click the 'Open Corpify' Desktop icon."
+Write-Host "Opening VS Code with your corporation..."
+Write-Host ""
+Write-Host "WHAT TO DO IN VS CODE (one time):" -ForegroundColor Yellow
+Write-Host "  1. If asked 'Do you trust the authors?' -> click 'Yes, I trust the authors'."
+Write-Host "  2. On the LEFT toolbar, click the Claude Code icon (the starburst)."
+Write-Host "     It is the ONLY AI chat - we removed GitHub Copilot to avoid confusion."
+Write-Host "  3. Click 'Sign in' -> '1. Claude account with subscription' (your Claude Pro)."
+Write-Host "  4. In the chat, type:  hi   -> your CEO greets you."
+Write-Host "  Next time: just double-click the 'Open Corpify' icon on your Desktop."
 Write-Host ""
 Write-Host "Need help? support@corpify.tech"
 Write-Host ""
 Start-Sleep -Seconds 3
-
-# Launch Claude Code so the CEO greets the Owner right away.
-Set-Location $installDir
-claude
+code $installDir
