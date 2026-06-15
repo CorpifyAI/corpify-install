@@ -8,5 +8,6 @@
   "chat.commandCenter.enabled": false,
   "task.allowAutomaticTasks": "on",
   "claudeCode.preferredLocation": "panel",
-  "claudeCode.hideOnboarding": true
+  "claudeCode.hideOnboarding": true,
+  "terminal.integrated.defaultLocation": "editor"
 }
