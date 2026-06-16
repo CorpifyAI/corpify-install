@@ -60,11 +60,17 @@ if [ "$CONSENT_LC" != "agree" ]; then
 fi
 echo ""
 
-# ---- License key prompt --------------------------------------------------
-echo "License key required (you received it by email after purchase)."
-echo "Format: XXXXXXXX-XXXXXXXX-XXXXXXXX-XXXXXXXX"
-echo ""
-read -r -p "Paste your license key: " LICENSE_KEY < /dev/tty
+# ---- License key (taken from your install command; prompt only as fallback)
+# Your personalized command sets CORPIFY_KEY so you never have to paste it.
+LICENSE_KEY="$CORPIFY_KEY"
+if [ -n "$LICENSE_KEY" ] && [ ${#LICENSE_KEY} -ge 16 ]; then
+    echo "License key detected from your install command."
+else
+    echo "License key required (you received it by email after purchase)."
+    echo "Format: XXXXXXXX-XXXXXXXX-XXXXXXXX-XXXXXXXX"
+    echo ""
+    read -r -p "Paste your license key: " LICENSE_KEY < /dev/tty
+fi
 
 if [ -z "$LICENSE_KEY" ] || [ ${#LICENSE_KEY} -lt 16 ]; then
     echo ""
