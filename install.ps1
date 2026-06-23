@@ -60,15 +60,14 @@ Write-Host ""
 # ---- License key (taken from your install command; prompt only as fallback)
 # Your personalized command sets $env:CORPIFY_KEY so you never have to paste
 # the key into the console separately.
-$licenseKey = $env:CORPIFY_KEY
-if ($licenseKey -and $licenseKey.Trim().Length -ge 16) {
-    $licenseKey = $licenseKey.Trim()
+$licenseKey = "$env:CORPIFY_KEY" -replace '\s',''
+if ($licenseKey.Length -ge 16) {
     Write-Host "License key detected from your install command." -ForegroundColor Green
 } else {
     Write-Host "License key required (you received it by email after purchase)." -ForegroundColor Yellow
     Write-Host "Format: XXXXXXXX-XXXXXXXX-XXXXXXXX-XXXXXXXX"
     Write-Host ""
-    $licenseKey = Read-Host "Paste your license key"
+    $licenseKey = (Read-Host "Paste your license key") -replace '\s',''
 }
 
 if (-not $licenseKey -or $licenseKey.Length -lt 16) {
@@ -104,14 +103,14 @@ if (-not $response.valid) {
     exit 1
 }
 
-# Tier mapping (product IDs from LemonSqueezy)
-$tierMap = @{
-    1112829 = 'standard'
-    1112833 = 'pro'
-}
+# Tier from product name (robust across test/live), with product_id fallback
 $productId = [int]$response.meta.product_id
-$tier = $tierMap[$productId]
-if (-not $tier) { $tier = 'standard' }
+$pname = "$($response.meta.product_name) $($response.meta.variant_name)"
+if ($pname -match 'Pro' -or $productId -eq 1112833) {
+    $tier = 'pro'
+} else {
+    $tier = 'standard'
+}
 
 Write-Host ""
 Write-Host "License valid! Tier: $($tier.ToUpper())" -ForegroundColor Green

@@ -62,7 +62,7 @@ echo ""
 
 # ---- License key (taken from your install command; prompt only as fallback)
 # Your personalized command sets CORPIFY_KEY so you never have to paste it.
-LICENSE_KEY="$CORPIFY_KEY"
+LICENSE_KEY="$(printf '%s' "${CORPIFY_KEY:-}" | tr -d '[:space:]')"
 if [ -n "$LICENSE_KEY" ] && [ ${#LICENSE_KEY} -ge 16 ]; then
     echo "License key detected from your install command."
 else
@@ -70,6 +70,7 @@ else
     echo "Format: XXXXXXXX-XXXXXXXX-XXXXXXXX-XXXXXXXX"
     echo ""
     read -r -p "Paste your license key: " LICENSE_KEY < /dev/tty
+    LICENSE_KEY="$(printf '%s' "$LICENSE_KEY" | tr -d '[:space:]')"
 fi
 
 if [ -z "$LICENSE_KEY" ] || [ ${#LICENSE_KEY} -lt 16 ]; then
@@ -103,10 +104,12 @@ if [ "$VALID" != "true" ]; then
     exit 1
 fi
 
-# Tier mapping
+# Tier from product name (robust across test/live), with product_id fallback
+PRODUCT_NAME=$(echo "$RESPONSE" | grep -o '"product_name":"[^"]*"' | head -1 | cut -d'"' -f4)
+VARIANT_NAME=$(echo "$RESPONSE" | grep -o '"variant_name":"[^"]*"' | head -1 | cut -d'"' -f4)
 PRODUCT_ID=$(echo "$RESPONSE" | grep -o '"product_id":[0-9]*' | head -1 | cut -d':' -f2)
 TIER="standard"
-if [ "$PRODUCT_ID" = "1112833" ]; then
+if echo "$PRODUCT_NAME $VARIANT_NAME" | grep -qi 'pro' || [ "$PRODUCT_ID" = "1112833" ]; then
     TIER="pro"
 fi
 
@@ -114,7 +117,7 @@ CUSTOMER_EMAIL=$(echo "$RESPONSE" | grep -o '"customer_email":"[^"]*"' | head -1
 INSTANCE_ID=$(echo "$RESPONSE" | grep -o '"instance":{"id":"[^"]*"' | head -1 | cut -d'"' -f4)
 
 echo ""
-echo "License valid! Tier: ${TIER^^}"
+echo "License valid! Tier: $(echo "$TIER" | tr 'a-z' 'A-Z')"
 echo "Activated for: $CUSTOMER_EMAIL"
 echo ""
 
