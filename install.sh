@@ -141,10 +141,14 @@ echo "Checking prerequisites..."
 
 OS="$(uname -s)"
 if [ "$OS" = "Darwin" ]; then
-    # macOS — use Homebrew
+    # macOS — use Homebrew. Installing Homebrew needs admin rights (sudo), and we
+    # run via 'curl | bash' so stdin is not a terminal. Cache sudo from the real
+    # terminal first, install non-interactively, then add brew to this session's PATH.
     if ! command -v brew &> /dev/null; then
-        echo "  Installing Homebrew..."
-        /bin/bash -c "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/HEAD/install.sh)"
+        echo "  Installing Homebrew (you'll be asked for your Mac password once)..."
+        sudo -v < /dev/tty || true
+        NONINTERACTIVE=1 /bin/bash -c "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/HEAD/install.sh)" < /dev/tty
+        eval "$(/opt/homebrew/bin/brew shellenv 2>/dev/null || /usr/local/bin/brew shellenv 2>/dev/null || true)"
     fi
     for pkg in git node; do
         if ! command -v "$pkg" &> /dev/null; then
