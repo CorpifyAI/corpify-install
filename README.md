@@ -29,6 +29,37 @@ The installer will:
 6. Pro tier: install Voice Control (Whispering)
 7. Open VS Code ready to use
 
+## Uninstalling Corpify
+
+Removes Corpify cleanly. Works even if a previous install was partial or broken.
+
+### Windows (PowerShell)
+
+```powershell
+irm https://corpify.tech/uninstall.ps1 | iex
+```
+
+> Close VS Code first — otherwise the corporation folder stays locked and can't be deleted.
+
+### Mac / Linux (Terminal)
+
+```bash
+curl -s https://corpify.tech/uninstall.sh | bash
+```
+
+**Preview without changing anything (dry run):**
+- Windows: `powershell -ExecutionPolicy Bypass -File uninstall.ps1 -DryRun`
+- Mac / Linux: `bash uninstall.sh --dry-run`
+
+The uninstaller will:
+1. Offer to back up your corporation's memory first
+2. Remove `~/corpify`, `~/.corpify`, and the desktop shortcut
+3. Ask before removing third-party tools (Git, Node.js, VS Code, Claude Code) — kept by default
+4. Never remove Homebrew or anything not installed by Corpify
+5. Offer to restore GitHub Copilot
+
+A copy of `uninstall.ps1` / `uninstall.sh` also ships inside `~/corpify`.
+
 ## What you get
 
 ### Standard ($149)
