@@ -158,11 +158,19 @@ if [ "$OS" = "Darwin" ]; then
             echo "  [OK] $pkg"
         fi
     done
-    if ! command -v code &> /dev/null; then
-        echo "  Installing VS Code..."
-        brew install --cask visual-studio-code || true
-    else
+    # VS Code — handle the "broken cask" case (brew lists it but the .app is gone)
+    VSCODE_APP="/Applications/Visual Studio Code.app"
+    if [ -d "$VSCODE_APP" ] && command -v code &> /dev/null; then
         echo "  [OK] VS Code"
+    else
+        echo "  Installing VS Code..."
+        # If brew has a stale record but the app is missing, clear it first so
+        # 'brew install' does a clean install instead of failing to "upgrade".
+        if brew list --cask visual-studio-code &> /dev/null && [ ! -d "$VSCODE_APP" ]; then
+            echo "  (repairing broken VS Code install...)"
+            brew uninstall --cask visual-studio-code --force &> /dev/null || true
+        fi
+        brew install --cask visual-studio-code || true
     fi
 else
     # Linux — apt or dnf
@@ -178,6 +186,15 @@ else
     fi
 fi
 
+# Resolve the VS Code CLI. On macOS 'code' is often NOT on PATH even when the
+# app is installed, so fall back to the binary shipped inside the .app bundle.
+CODE_CLI="code"
+if ! command -v code &> /dev/null; then
+    if [ -x "/Applications/Visual Studio Code.app/Contents/Resources/app/bin/code" ]; then
+        CODE_CLI="/Applications/Visual Studio Code.app/Contents/Resources/app/bin/code"
+    fi
+fi
+
 # Claude Code CLI (terminal)
 if ! command -v claude &> /dev/null; then
     echo "  Installing Claude Code CLI..."
@@ -188,8 +205,11 @@ fi
 
 # Claude Code VS Code extension (UI panel)
 echo "  Installing Claude Code VS Code extension..."
-code --install-extension anthropic.claude-code --force &> /dev/null || true
-echo "  [OK] Claude Code VS Code extension"
+if "$CODE_CLI" --install-extension anthropic.claude-code --force &> /dev/null; then
+    echo "  [OK] Claude Code VS Code extension"
+else
+    echo "  [WARN] Could not install extension (VS Code CLI unavailable) - install it later from VS Code Extensions, search 'Claude Code'."
+fi
 
 # ---- Download Corpify content --------------------------------------------
 echo ""
@@ -236,7 +256,13 @@ echo "Your AI Corporation is ready at: $INSTALL_DIR"
 echo ""
 echo "Opening VS Code with your corporation..."
 sleep 2
-code "$INSTALL_DIR" &> /dev/null &
+# On macOS prefer 'open -a' (uses the .app directly, no PATH dependency).
+if [ "$OS" = "Darwin" ]; then
+    open -a "Visual Studio Code" "$INSTALL_DIR" 2>/dev/null \
+        || "$CODE_CLI" "$INSTALL_DIR" &> /dev/null &
+else
+    "$CODE_CLI" "$INSTALL_DIR" &> /dev/null &
+fi
 
 echo ""
 echo "Next steps:"
