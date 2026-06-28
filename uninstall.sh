@@ -120,6 +120,7 @@ fi
 if [ "$DRY_RUN" = "1" ] || confirm "Delete your Corpify corporation and all its data?"; then
     remove_if_exists "$HOME/corpify" "corporation folder (~/corpify)"
     remove_if_exists "$HOME/.corpify" "license folder (~/.corpify)"
+    remove_if_exists "$HOME/Desktop/Open Corpify.command" "desktop launcher (Open Corpify)"
 else
     add_report "[kept] Corpify files (deletion declined)"
 fi

@@ -253,6 +253,18 @@ echo "  Installation complete!"
 echo "========================================"
 echo ""
 echo "Your AI Corporation is ready at: $INSTALL_DIR"
+
+# macOS: create a Desktop launcher (parity with the Windows 'Open Corpify' shortcut)
+if [ "$OS" = "Darwin" ]; then
+    LAUNCHER="$HOME/Desktop/Open Corpify.command"
+    cat > "$LAUNCHER" <<'LAUNCH'
+#!/bin/bash
+open -a "Visual Studio Code" "$HOME/corpify"
+LAUNCH
+    chmod +x "$LAUNCHER"
+    echo "An 'Open Corpify' icon was added to your Desktop (double-click it to reopen your corporation)."
+fi
+
 echo ""
 echo "Opening VS Code with your corporation..."
 sleep 2
